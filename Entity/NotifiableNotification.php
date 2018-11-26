@@ -29,6 +29,12 @@ class NotifiableNotification implements \JsonSerializable
     protected $seen;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="mailed", type="boolean")
+     */
+    protected $mailed;
+
+    /**
      * @var Notification
      * @ORM\ManyToOne(targetEntity="Mgilet\NotificationBundle\Entity\Notification", inversedBy="notifiableNotifications", cascade={"persist"})
      */
@@ -47,6 +53,7 @@ class NotifiableNotification implements \JsonSerializable
     public function __construct()
     {
         $this->seen = false;
+        $this->mailed = false;
     }
 
     /**
@@ -72,6 +79,25 @@ class NotifiableNotification implements \JsonSerializable
     public function setSeen($isSeen)
     {
         $this->seen = $isSeen;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean Mailed status of the notification
+     */
+    public function isMailed()
+    {
+        return $this->mailed;
+    }
+
+    /**
+     * @param boolean $isMailed Mailed status of the notification
+     * @return $this
+     */
+    public function setMailed($isMailed)
+    {
+        $this->mailed = $isMailed;
 
         return $this;
     }
@@ -124,6 +150,7 @@ class NotifiableNotification implements \JsonSerializable
         return [
             'id'           => $this->getId(),
             'seen'         => $this->isSeen(),
+            'mailed'         => $this->isMailed(),
             'notification' => $this->getNotification(),
             // for the notifiable, we serialize only the id:
             // - we don't need not want the FQCN exposed
