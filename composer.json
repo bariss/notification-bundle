@@ -1,5 +1,5 @@
 {
-  "name" : "mgilet/notification-bundle",
+  "name" : "bariss/notification-bundle",
   "license": "MIT",
   "description" : "A simple Symfony 3 bundle for user notifications",
   "type" : "symfony-bundle",
